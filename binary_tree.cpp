@@ -59,6 +59,53 @@ void LRN(Node* node) {
     cout << node->data << " ";
 }
 
+Node* findMin(Node* node) {
+    while (node->left != NULL) {
+        node = node->left;
+    }
+    return node;
+}
+
+Node* deleteNode(Node* node, int value) {
+    if (node == NULL) {
+        return NULL;
+    }
+
+    if (value < node->data) {
+        node->left = deleteNode(node->left, value);
+    }
+    else if (value > node->data) {
+        node->right = deleteNode(node->right, value);
+    }
+    else {
+        if (node->left == NULL && node->right == NULL) {
+            delete node;
+            return NULL;
+        }
+        
+        if (node->left == NULL) {
+            Node* temp = node->right;
+            delete node;
+            return temp;
+        }
+        else if (node->right == NULL) {
+            Node* temp = node->left;
+            delete node;
+            return temp;
+        }
+        
+        Node* successor = findMin(node->right);
+        node->data = successor->data;
+        node->right = deleteNode(node->right, successor->data);
+    }
+    
+    return node;
+}
+
+void deleteValue(int value) {
+    root = deleteNode(root, value);
+}
+
 int main() {
     insert(50);
     insert(30);
@@ -66,11 +113,20 @@ int main() {
     insert(20);
     insert(40);
 
+    cout << "Before deletion:" << endl;
     cout << "LNR: ";
     LNR(root);
     cout << endl;
 
-    cout << "NLR: ";
+    cout << "\nDeleting 30..." << endl;
+    deleteValue(30);
+    
+    cout << "After deletion:" << endl;
+    cout << "LNR: ";
+    LNR(root);
+    cout << endl;
+
+    cout << "\nNLR: ";
     NLR(root);
     cout << endl;
 
