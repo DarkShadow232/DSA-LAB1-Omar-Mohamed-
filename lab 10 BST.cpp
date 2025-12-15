@@ -21,97 +21,97 @@ public:
         root = NULL;
     }
 
-    node* insert(node* r, int item) {
-        if (r == NULL) {
-            r = new node(item);
+    node* insert(node* currentNode, int value) {
+        if (currentNode == NULL) {
+            currentNode = new node(value);
         }
-        else if (item < r->data) {
-            r->left = insert(r->left, item);
+        else if (value < currentNode->data) {
+            currentNode->left = insert(currentNode->left, value);
         }
         else {
-            r->right = insert(r->right, item);
+            currentNode->right = insert(currentNode->right, value);
         }
-        return r;
+        return currentNode;
     }
 
-    void insert(int item) {
-        root = insert(root, item);
+    void insert(int value) {
+        root = insert(root, value);
     }
 
-    void preorder(node* r) {
-        if (r == NULL) return;
+    void preorder(node* currentNode) {
+        if (currentNode == NULL) return;
 
-        cout << r->data << "\t";
-        preorder(r->left);
-        preorder(r->right);
+        cout << currentNode->data << "\t";
+        preorder(currentNode->left);
+        preorder(currentNode->right);
     }
 
-    void inorder(node* r) {
-        if (r == NULL) return;
+    void inorder(node* currentNode) {
+        if (currentNode == NULL) return;
 
-        inorder(r->left);
-        cout << r->data << "\t";
-        inorder(r->right);
+        inorder(currentNode->left);
+        cout << currentNode->data << "\t";
+        inorder(currentNode->right);
     }
 
-    void postorder(node* r) {
-        if (r == NULL) return;
+    void postorder(node* currentNode) {
+        if (currentNode == NULL) return;
 
-        postorder(r->left);
-        postorder(r->right);
-        cout << r->data << "\t";
+        postorder(currentNode->left);
+        postorder(currentNode->right);
+        cout << currentNode->data << "\t";
     }
 
-    node* Search(node* r, int key) {
-        if (r == NULL || r->data == key)
-            return r;
+    node* Search(node* currentNode, int targetValue) {
+        if (currentNode == NULL || currentNode->data == targetValue)
+            return currentNode;
 
-        if (key < r->data)
-            return Search(r->left, key);
+        if (targetValue < currentNode->data)
+            return Search(currentNode->left, targetValue);
 
-        return Search(r->right, key);
+        return Search(currentNode->right, targetValue);
     }
 
-    bool search(int key) {
-        node* result = Search(root, key);
+    bool search(int targetValue) {
+        node* result = Search(root, targetValue);
         return result != NULL;
     }
 
-    node* FindMin(node* r) {
-        if (r == NULL) return NULL;
-        else if (r->left == NULL)
-            return r;
+    node* FindMin(node* currentNode) {
+        if (currentNode == NULL) return NULL;
+        else if (currentNode->left == NULL)
+            return currentNode;
         else
-            return FindMin(r->left);
+            return FindMin(currentNode->left);
     }
 
-    node* deleteNode(node* r, int key) {
-        if (r == NULL) return r;
+    node* deleteNode(node* currentNode, int targetValue) {
+        if (currentNode == NULL) return currentNode;
 
-        if (key < r->data)
-            r->left = deleteNode(r->left, key);
-        else if (key > r->data)
-            r->right = deleteNode(r->right, key);
+        if (targetValue < currentNode->data)
+            currentNode->left = deleteNode(currentNode->left, targetValue);
+        else if (targetValue > currentNode->data)
+            currentNode->right = deleteNode(currentNode->right, targetValue);
         else {
-            if (r->left == NULL) {
-                node* temp = r->right;
-                delete r;
+            if (currentNode->left == NULL) {
+                node* temp = currentNode->right;
+                delete currentNode;
                 return temp;
             }
-            else if (r->right == NULL) {
-                node* temp = r->left;
-                delete r;
+            else if (currentNode->right == NULL) {
+                node* temp = currentNode->left;
+                delete currentNode;
                 return temp;
             }
-            node* temp = FindMin(r->right);
-            r->data = temp->data;
-            r->right = deleteNode(r->right, temp->data);
+            node* successor = FindMin(currentNode->right);
+            currentNode->data = successor->data;
+            currentNode->right = deleteNode(currentNode->right, successor->data);
         }
-        return r;
+        return currentNode;
     }
 
-    void deleteNode(int key) {
-        root = deleteNode(root, key);
+    void deleteNode(int targetValue) {
+        root = deleteNode(root, targetValue);
     }
 };
 
