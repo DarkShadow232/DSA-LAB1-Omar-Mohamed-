@@ -1,13 +1,13 @@
-vector<int> cutTheSticks(vector<int> arr) {
-    vector<int>ans;
+vector<int> cutTheSticks(vector<int> stickLengths) {
+    vector<int> result;
+    int remainingSticks = stickLengths.size();
     
-    int n = arr.size();
-    
-    while(n){
-        int minn = *min_element(arr.begin(), arr.end());
-        ans.push_back(n);
-        arr.erase(remove(arr.begin(), arr.end(), minn),arr.end());
-        n = arr.size();
+    while(remainingSticks){
+        int shortestLength = *min_element(stickLengths.begin(), stickLengths.end());
+        result.push_back(remainingSticks);
+        stickLengths.erase(remove(stickLengths.begin(), stickLengths.end(), shortestLength), stickLengths.end());
+        remainingSticks = stickLengths.size();
     }
-    return ans;
+    
+    return result;
 }

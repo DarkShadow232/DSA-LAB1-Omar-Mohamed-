@@ -11,21 +11,21 @@
 #define ll long long 
 class Solution {
 public:
-    
-    bool recurse(TreeNode* node, ll lower_bound, ll upper_bound){
+    bool validateNode(TreeNode* node, ll minValue, ll maxValue){
         if(node == NULL)
             return true;
         
-        if(node->val < lower_bound || node->val > upper_bound)
+        if(node->val < minValue || node->val > maxValue)
             return false;
         
-        return recurse(node->left , lower_bound , node->val - 1LL) && recurse(node->right , node->val + 1LL , upper_bound);
+        return validateNode(node->left, minValue, node->val - 1LL) && 
+               validateNode(node->right, node->val + 1LL, maxValue);
     }
     
     bool isValidBST(TreeNode* root) {
-        ll lower_bound = INT_MIN;
-        ll upper_bound = INT_MAX;
+        ll minValue = INT_MIN;
+        ll maxValue = INT_MAX;
         
-        return recurse(root, lower_bound, upper_bound);
+        return validateNode(root, minValue, maxValue);
     }
 };

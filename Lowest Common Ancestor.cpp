@@ -18,23 +18,22 @@
 
 class Solution {
 public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* firstNode, TreeNode* secondNode) {
         if(root == NULL)
             return NULL;
         
-        if(root == p || root == q){
+        if(root == firstNode || root == secondNode){
             return root;
         }
         
-        TreeNode* LCAattainedFromLeftSubtree = lowestCommonAncestor(root->left, p, q);
-        TreeNode* LCAattainedFromRightSubtree = lowestCommonAncestor(root->right, p, q);
+        TreeNode* leftResult = lowestCommonAncestor(root->left, firstNode, secondNode);
+        TreeNode* rightResult = lowestCommonAncestor(root->right, firstNode, secondNode);
         
-        if(LCAattainedFromLeftSubtree == NULL){
-            return LCAattainedFromRightSubtree; 
-        }else if(LCAattainedFromRightSubtree == NULL){
-            return LCAattainedFromLeftSubtree; 
-        }else{
+        if(leftResult == NULL){
+            return rightResult; 
+        } else if(rightResult == NULL){
+            return leftResult; 
+        } else {
             return root; 
         }
     }

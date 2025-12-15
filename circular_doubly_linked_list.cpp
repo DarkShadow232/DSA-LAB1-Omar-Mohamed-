@@ -18,9 +18,9 @@ void insert(int value) {
         newNode->next = newNode;
         newNode->prev = newNode;
     } else {
-        Node* tail = head->prev;
-        tail->next = newNode;
-        newNode->prev = tail;
+        Node* lastNode = head->prev;
+        lastNode->next = newNode;
+        newNode->prev = lastNode;
         newNode->next = head;
         head->prev = newNode;
     }
@@ -32,11 +32,11 @@ void display() {
         return;
     }
 
-    Node* temp = head;
+    Node* current = head;
     do {
-        cout << temp->data << " <-> ";
-        temp = temp->next;
-    } while (temp != head);
+        cout << current->data << " <-> ";
+        current = current->next;
+    } while (current != head);
     cout << "..." << endl;
 }
 

@@ -1,39 +1,37 @@
 
 class Solution {
 public:
-    ListNode* rotateRight(ListNode* head, int k) {
-        
-        int cnt = 0;
-        ListNode* trav = head;
+    ListNode* rotateRight(ListNode* head, int rotations) {
+        int listLength = 0;
+        ListNode* current = head;
         ListNode* lastNode = head;
         
-        while(trav != NULL){
-            cnt++;
-            lastNode = trav;
-            trav = trav->next;
+        while(current != NULL){
+            listLength++;
+            lastNode = current;
+            current = current->next;
         }
         
-        k %= cnt;
+        rotations %= listLength;
         
-        if(k == 0){
+        if(rotations == 0){
             return head;
         }
         
-        int skip = cnt - k - 1;
+        int stepsToNewTail = listLength - rotations - 1;
         
-        trav = head;
+        current = head;
         
-        while(skip--){
-            trav = trav->next;
+        while(stepsToNewTail--){
+            current = current->next;
         }
         
-        ListNode *newHead = trav->next;
-        trav->next = NULL;
+        ListNode* newHead = current->next;
+        current->next = NULL;
         
         lastNode->next = head;
         
         return newHead;
-        
     }
 };
 

@@ -13,38 +13,37 @@
 
 class MyStack {
 public:
-    
-    queue<int> primary;
-    queue<int> auxiliary;
+    queue<int> mainQueue;
+    queue<int> tempQueue;
     
     MyStack() {
         
     }
     
-    void push(int x) {
-        while(!primary.empty()){
-            auxiliary.push(primary.front());
-            primary.pop();
+    void push(int value) {
+        while(!mainQueue.empty()){
+            tempQueue.push(mainQueue.front());
+            mainQueue.pop();
         }
-        primary.push(x);
-        while(!auxiliary.empty()){
-            primary.push(auxiliary.front());
-            auxiliary.pop();
+        mainQueue.push(value);
+        while(!tempQueue.empty()){
+            mainQueue.push(tempQueue.front());
+            tempQueue.pop();
         }
     }
     
     int pop() {
-        int top = primary.front();
-        primary.pop();
-        return top;
+        int topValue = mainQueue.front();
+        mainQueue.pop();
+        return topValue;
     }
     
     int top() {
-        return primary.front();
+        return mainQueue.front();
     }
     
     bool empty() {
-        return primary.empty();
+        return mainQueue.empty();
     }
 };
 
@@ -72,39 +71,38 @@ public:
 
 class MyStack {
 public:
-    
-    queue<int> que;
+    queue<int> mainQueue;
     
     MyStack() {
         
     }
     
-    void reverseRecursively(queue<int> &que){  
-        if(que.empty())
+    void reverseQueue(queue<int> &queue){  
+        if(queue.empty())
             return;
-        int current_top = que.front();
-        que.pop();
-        reverseRecursively(que);
-        que.push(current_top);
+        int frontElement = queue.front();
+        queue.pop();
+        reverseQueue(queue);
+        queue.push(frontElement);
     }
     
-    void push(int x) {
-        reverseRecursively(que);
-        que.push(x);
-        reverseRecursively(que);
+    void push(int value) {
+        reverseQueue(mainQueue);
+        mainQueue.push(value);
+        reverseQueue(mainQueue);
     }
     
     int pop() {
-        int top = que.front();
-        que.pop();
-        return top;
+        int topValue = mainQueue.front();
+        mainQueue.pop();
+        return topValue;
     }
     
     int top() {
-        return que.front();
+        return mainQueue.front();
     }
     
     bool empty() {
-        return que.empty();
+        return mainQueue.empty();
     }
 };

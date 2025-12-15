@@ -18,20 +18,20 @@ void insert(int value) {
     if (head == NULL) {
         head = newNode;
     } else {
-        Node* temp = head;
-        while (temp->next != NULL) {
-            temp = temp->next;
+        Node* current = head;
+        while (current->next != NULL) {
+            current = current->next;
         }
-        temp->next = newNode;
-        newNode->prev = temp;
+        current->next = newNode;
+        newNode->prev = current;
     }
 }
 
 void display() {
-    Node* temp = head;
-    while (temp != NULL) {
-        cout << temp->data << " <-> ";
-        temp = temp->next;
+    Node* current = head;
+    while (current != NULL) {
+        cout << current->data << " <-> ";
+        current = current->next;
     }
     cout << "NULL" << endl;
 }

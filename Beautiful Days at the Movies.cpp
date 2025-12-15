@@ -1,26 +1,26 @@
-int reverse (int n) {
-    int rev = 0;
+int reverseNumber(int number) {
+    int reversed = 0;
     
-    while (n != 0) {
-        int rem = n % 10;
-        rev = rev * 10 + rem;
-        n = n / 10;
+    while (number != 0) {
+        int digit = number % 10;
+        reversed = reversed * 10 + digit;
+        number = number / 10;
     }
     
-    return rev;
+    return reversed;
 }
 
-int beautifulDays(int i, int j, int k) {
-    int rev = 0;
-    int count = 0;
-    for (int it = i; it <= j; it++) {
-        int revNum = reverse(it);
-                
-        int diff = abs(it - revNum);
-        if (diff % k == 0) {
-            count++;
+int beautifulDays(int startDay, int endDay, int divisor) {
+    int beautifulDayCount = 0;
+    
+    for (int day = startDay; day <= endDay; day++) {
+        int reversedDay = reverseNumber(day);
+        int difference = abs(day - reversedDay);
+        
+        if (difference % divisor == 0) {
+            beautifulDayCount++;
         }
     }
     
-    return count;
+    return beautifulDayCount;
 }

@@ -14,46 +14,46 @@ struct Node {
 
 Node* root = NULL;
 
-Node* insert(Node* node, int val) {
-    if (node == NULL) {
-        return new Node(val);
+Node* insert(Node* currentNode, int value) {
+    if (currentNode == NULL) {
+        return new Node(value);
     }
     
-    if (val < node->data) {
-        node->left = insert(node->left, val);
+    if (value < currentNode->data) {
+        currentNode->left = insert(currentNode->left, value);
     }
     else {
-        node->right = insert(node->right, val);
+        currentNode->right = insert(currentNode->right, value);
     }
     
-    return node;
+    return currentNode;
 }
 
-void insert(int val) {
-    root = insert(root, val);
+void insert(int value) {
+    root = insert(root, value);
 }
 
-Node* search(Node* node, int key) {
-    if (node == NULL || node->data == key) {
-        return node;
+Node* search(Node* currentNode, int targetValue) {
+    if (currentNode == NULL || currentNode->data == targetValue) {
+        return currentNode;
     }
     
-    if (key < node->data) {
-        return search(node->left, key);
+    if (targetValue < currentNode->data) {
+        return search(currentNode->left, targetValue);
     }
     
-    return search(node->right, key);
+    return search(currentNode->right, targetValue);
 }
 
-bool search(int key) {
-    return search(root, key) != NULL;
+bool search(int targetValue) {
+    return search(root, targetValue) != NULL;
 }
 
-void inorder(Node* node) {
-    if (node == NULL) return;
-    inorder(node->left);
-    cout << node->data << " ";
-    inorder(node->right);
+void inorder(Node* currentNode) {
+    if (currentNode == NULL) return;
+    inorder(currentNode->left);
+    cout << currentNode->data << " ";
+    inorder(currentNode->right);
 }
 
 int main() {

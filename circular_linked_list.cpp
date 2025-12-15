@@ -16,11 +16,11 @@ void insert(int value) {
         head = newNode;
         newNode->next = head;
     } else {
-        Node* temp = head;
-        while (temp->next != head) {
-            temp = temp->next;
+        Node* current = head;
+        while (current->next != head) {
+            current = current->next;
         }
-        temp->next = newNode;
+        current->next = newNode;
         newNode->next = head;
     }
 }
@@ -31,11 +31,11 @@ void display() {
         return;
     }
 
-    Node* temp = head;
+    Node* current = head;
     do {
-        cout << temp->data << " -> ";
-        temp = temp->next;
-    } while (temp != head);
+        cout << current->data << " -> ";
+        current = current->next;
+    } while (current != head);
     cout << "..." << endl;
 }
 

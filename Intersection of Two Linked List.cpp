@@ -3,42 +3,41 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        
-        int list1count = 0;
-        ListNode* tempA = headA;
-        while(tempA != NULL){
-            list1count++;
-            tempA = tempA->next;
+        int lengthA = 0;
+        ListNode* currentA = headA;
+        while(currentA != NULL){
+            lengthA++;
+            currentA = currentA->next;
         }
         
-        int list2count = 0;
-        ListNode* tempB = headB;
-        while(tempB != NULL){
-            list2count++;
-            tempB = tempB->next;
+        int lengthB = 0;
+        ListNode* currentB = headB;
+        while(currentB != NULL){
+            lengthB++;
+            currentB = currentB->next;
         }
         
-        tempA = headA;
-        tempB = headB;
+        currentA = headA;
+        currentB = headB;
         
-        if(list2count > list1count){
-            int diff = list2count - list1count;
-            while(diff--){
-                tempB = tempB->next;
+        if(lengthB > lengthA){
+            int difference = lengthB - lengthA;
+            while(difference--){
+                currentB = currentB->next;
             }
-        }else if(list2count < list1count){
-            int diff = list1count - list2count;
-            while(diff--){
-                tempA = tempA->next;
+        } else if(lengthA > lengthB){
+            int difference = lengthA - lengthB;
+            while(difference--){
+                currentA = currentA->next;
             }
         }
         
-        while(tempA != NULL){
-            if(tempA == tempB){
-                return tempA;
+        while(currentA != NULL){
+            if(currentA == currentB){
+                return currentA;
             }
-            tempA = tempA->next;
-            tempB = tempB->next;
+            currentA = currentA->next;
+            currentB = currentB->next;
         }
         
         return NULL;
@@ -49,26 +48,24 @@ public:
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* pointerA = headA;
+        ListNode* pointerB = headB;
         
-        ListNode* D1 = headA;
-        ListNode* D2 = headB;
-        
-        while(D1 != D2){
-            if(D1 == NULL){
-                D1 = headB;
-            }else{
-                D1 = D1->next;
+        while(pointerA != pointerB){
+            if(pointerA == NULL){
+                pointerA = headB;
+            } else {
+                pointerA = pointerA->next;
             }
             
-            if(D2 == NULL){
-                D2 = headA;
-            }else{
-                D2 = D2->next;
+            if(pointerB == NULL){
+                pointerB = headA;
+            } else {
+                pointerB = pointerB->next;
             }
         }
         
-        return D1;
-       
+        return pointerA;
     }
 };
 

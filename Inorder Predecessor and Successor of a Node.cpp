@@ -8,43 +8,38 @@
 
 
 
-void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+void findPreSuc(Node* root, Node*& predecessor, Node*& successor, int targetKey)
 {
-    
-    if (root == NULL)  return ;
+    if (root == NULL) return;
 
-    
-    if (root->key == key)
+    if (root->key == targetKey)
     {
-        
         if (root->left != NULL)
         {
-            Node* tmp = root->left;
-            while (tmp->right)
-                tmp = tmp->right;
-            pre = tmp ;
+            Node* current = root->left;
+            while (current->right)
+                current = current->right;
+            predecessor = current;
         }
 
-        
         if (root->right != NULL)
         {
-            Node* tmp = root->right ;
-            while (tmp->left)
-                tmp = tmp->left ;
-            suc = tmp ;
+            Node* current = root->right;
+            while (current->left)
+                current = current->left;
+            successor = current;
         }
-        return ;
+        return;
     }
 
-    
-    if (root->key > key)
+    if (root->key > targetKey)
     {
-        suc = root ;
-        findPreSuc(root->left, pre, suc, key) ;
+        successor = root;
+        findPreSuc(root->left, predecessor, successor, targetKey);
     }
     else 
     {
-        pre = root ;
-        findPreSuc(root->right, pre, suc, key) ;
+        predecessor = root;
+        findPreSuc(root->right, predecessor, successor, targetKey);
     }
 }

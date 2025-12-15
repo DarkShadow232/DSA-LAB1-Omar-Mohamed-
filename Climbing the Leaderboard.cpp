@@ -1,21 +1,26 @@
-vector<int> climbingLeaderboard(vector<int> ranked, vector<int> player) {
-    vector<int> history;
-    history.resize(player.size());
-    int rank =0, chek = -1;
-    int j = player.size() - 1;
-    for (int i = 0; i < ranked.size()&&j > -1; i++) {
-
-        if (ranked[i] != chek) {
-            chek = ranked[i];
-            rank++;
-            while ((player[j] >= chek) && (j >-1)) {
-                history[j--] = rank;
+vector<int> climbingLeaderboard(vector<int> leaderboardScores, vector<int> playerScores) {
+    vector<int> playerRanks;
+    playerRanks.resize(playerScores.size());
+    
+    int currentRank = 0;
+    int previousScore = -1;
+    int playerIndex = playerScores.size() - 1;
+    
+    for (int i = 0; i < leaderboardScores.size() && playerIndex > -1; i++) {
+        if (leaderboardScores[i] != previousScore) {
+            previousScore = leaderboardScores[i];
+            currentRank++;
+            
+            while ((playerScores[playerIndex] >= previousScore) && (playerIndex > -1)) {
+                playerRanks[playerIndex--] = currentRank;
             }
         }
     }
-    rank++;
-    while (j > -1) {
-        history[j--] = rank;
+    
+    currentRank++;
+    while (playerIndex > -1) {
+        playerRanks[playerIndex--] = currentRank;
     }
-    return history;
+    
+    return playerRanks;
 }

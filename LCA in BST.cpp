@@ -13,22 +13,21 @@
 
 class Solution {
 public:
-    
-    TreeNode* recurse(TreeNode* node, TreeNode* p, TreeNode* q){
-        if(node->val == p->val || node->val == q->val || (node->val > p->val && node->val < q->val)){
-            return node;
-        }else if(node->val > p->val && node->val > q->val){
-            return recurse(node->left, p, q);
-        }else{
-            return recurse(node->right, p, q);
+    TreeNode* findLCA(TreeNode* currentNode, TreeNode* firstNode, TreeNode* secondNode){
+        if(currentNode->val == firstNode->val || currentNode->val == secondNode->val || 
+           (currentNode->val > firstNode->val && currentNode->val < secondNode->val)){
+            return currentNode;
+        } else if(currentNode->val > firstNode->val && currentNode->val > secondNode->val){
+            return findLCA(currentNode->left, firstNode, secondNode);
+        } else {
+            return findLCA(currentNode->right, firstNode, secondNode);
         }
     }
     
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        
-        if(p->val < q->val)
-            return recurse(root, p, q);
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* firstNode, TreeNode* secondNode) {
+        if(firstNode->val < secondNode->val)
+            return findLCA(root, firstNode, secondNode);
         else
-            return recurse(root, q, p);
+            return findLCA(root, secondNode, firstNode);
     }
 };

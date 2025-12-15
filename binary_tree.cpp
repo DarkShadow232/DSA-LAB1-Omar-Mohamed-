@@ -38,28 +38,28 @@ void insert(int value) {
     }
 }
 
-void LNR(Node* node) {
+void inorderTraversal(Node* node) {
     if (node == NULL) return;
-    LNR(node->left);
+    inorderTraversal(node->left);
     cout << node->data << " ";
-    LNR(node->right);
+    inorderTraversal(node->right);
 }
 
-void NLR(Node* node) {
+void preorderTraversal(Node* node) {
     if (node == NULL) return;
     cout << node->data << " ";
-    NLR(node->left);
-    NLR(node->right);
+    preorderTraversal(node->left);
+    preorderTraversal(node->right);
 }
 
-void LRN(Node* node) {
+void postorderTraversal(Node* node) {
     if (node == NULL) return;
-    LRN(node->left);
-    LRN(node->right);
+    postorderTraversal(node->left);
+    postorderTraversal(node->right);
     cout << node->data << " ";
 }
 
-Node* findMin(Node* node) {
+Node* findMinimumNode(Node* node) {
     while (node->left != NULL) {
         node = node->left;
     }
@@ -94,7 +94,7 @@ Node* deleteNode(Node* node, int value) {
             return temp;
         }
         
-        Node* successor = findMin(node->right);
+        Node* successor = findMinimumNode(node->right);
         node->data = successor->data;
         node->right = deleteNode(node->right, successor->data);
     }
@@ -114,24 +114,24 @@ int main() {
     insert(40);
 
     cout << "Before deletion:" << endl;
-    cout << "LNR: ";
-    LNR(root);
+    cout << "Inorder: ";
+    inorderTraversal(root);
     cout << endl;
 
     cout << "\nDeleting 30..." << endl;
     deleteValue(30);
     
     cout << "After deletion:" << endl;
-    cout << "LNR: ";
-    LNR(root);
+    cout << "Inorder: ";
+    inorderTraversal(root);
     cout << endl;
 
-    cout << "\nNLR: ";
-    NLR(root);
+    cout << "\nPreorder: ";
+    preorderTraversal(root);
     cout << endl;
 
-    cout << "LRN: ";
-    LRN(root);
+    cout << "Postorder: ";
+    postorderTraversal(root);
     cout << endl;
 
     return 0;

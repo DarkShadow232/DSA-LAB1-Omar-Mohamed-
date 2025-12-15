@@ -1,15 +1,15 @@
 int birthdayCakeCandles(vector<int> candles) {
     sort(candles.begin(), candles.end());
     
-    int count = 1;
-    int sizeArray = candles.size();
+    int tallestCandleCount = 1;
+    int arraySize = candles.size();
+    int tallestHeight = candles[arraySize - 1];
     
-    for (int i = 0; i < sizeArray - 1; i++) {
-        
-        if (candles[i] == candles[sizeArray - 1]) {
-            count++;
-        };
-    };
+    for (int i = 0; i < arraySize - 1; i++) {
+        if (candles[i] == tallestHeight) {
+            tallestCandleCount++;
+        }
+    }
     
-    return count;
-};
+    return tallestCandleCount;
+}

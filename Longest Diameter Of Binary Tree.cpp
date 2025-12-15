@@ -14,25 +14,25 @@
 
 
 
-int recurse(TreeNode* node, int &longestDiameter){
+int calculateHeight(TreeNode* node, int &maxDiameter){
     if(node == NULL)
         return 0;
     
-    int left = recurse(node->left, longestDiameter);
-    int right = recurse(node->right, longestDiameter);
+    int leftHeight = calculateHeight(node->left, maxDiameter);
+    int rightHeight = calculateHeight(node->right, maxDiameter);
     
-    int pathLeftOrRight = max(left, right) + 1;
-    int pathLeftANDRight = 1 + left + right;
-    longestDiameter = max(longestDiameter, pathLeftANDRight);
+    int heightThroughThisNode = max(leftHeight, rightHeight) + 1;
+    int diameterThroughThisNode = 1 + leftHeight + rightHeight;
+    maxDiameter = max(maxDiameter, diameterThroughThisNode);
     
-    return pathLeftOrRight;
+    return heightThroughThisNode;
 }
 
 class Solution {
 public:
     int diameterOfBinaryTree(TreeNode* root) {
-        int longestDiameter = 0;
-        recurse(root, longestDiameter);
-        return longestDiameter - 1; 
+        int maxDiameter = 0;
+        calculateHeight(root, maxDiameter);
+        return maxDiameter - 1; 
     }
 };

@@ -1,16 +1,21 @@
-void countApplesAndOranges(int s, int t, int a, int b, vector<int> apples, vector<int> oranges) {
-    int appleCount=0, orangeCount=0;
+void countApplesAndOranges(int houseStart, int houseEnd, int appleTree, int orangeTree, vector<int> appleDistances, vector<int> orangeDistances) {
+    int applesLanded = 0;
+    int orangesLanded = 0;
     
-    for (int i = 0; i < apples.size(); i++){
-        if (((apples[i] + a) >= s) && (apples[i] + a) <= t){
-            appleCount++;
+    for (int i = 0; i < appleDistances.size(); i++){
+        int applePosition = appleDistances[i] + appleTree;
+        if (applePosition >= houseStart && applePosition <= houseEnd){
+            applesLanded++;
         }
     }
-    for (int i = 0; i < oranges.size(); i++){
-        if (((oranges[i] + b) >= s) && (oranges[i] + b) <= t){
-            orangeCount++;
+    
+    for (int i = 0; i < orangeDistances.size(); i++){
+        int orangePosition = orangeDistances[i] + orangeTree;
+        if (orangePosition >= houseStart && orangePosition <= houseEnd){
+            orangesLanded++;
         }
     }
-    cout << appleCount << endl;
-    cout << orangeCount;
+    
+    cout << applesLanded << endl;
+    cout << orangesLanded;
 }

@@ -1,15 +1,18 @@
 int countingValleys(int steps, string path) {
-    int sea = 0, valley = 0;
+    int currentLevel = 0;
+    int valleyCount = 0;
+    
     for (int i = 0; i < path.size(); i++) {
         if (path[i] == 'U') {
-            sea++;
-            if (sea == 0) {
-                valley++;
+            currentLevel++;
+            if (currentLevel == 0) {
+                valleyCount++;
             }
         }
         if (path[i] == 'D') {
-            sea--;
+            currentLevel--;
         }
     }
-    return valley;  
+    
+    return valleyCount;  
 }

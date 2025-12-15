@@ -3,43 +3,40 @@ are corresponding nodes in the two halves of the lists.
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
+        ListNode* previous = NULL;
+        ListNode* current = head;
+        ListNode* nextNode;
         
-        ListNode* prev=NULL;
-        ListNode* cur=head;
-        ListNode* n;
-        
-        while(cur!=NULL){
-            
-            n=cur->next;
-            cur->next=prev;
-            prev=cur;
-            cur=n;
-            
+        while(current != NULL){
+            nextNode = current->next;
+            current->next = previous;
+            previous = current;
+            current = nextNode;
         }
         
-        return prev;
+        return previous;
     }
     
     bool isPalindrome(ListNode* head) {
-        
         ListNode* fast = head;
         ListNode* slow = head;
+        
         while(fast != NULL && fast->next != NULL){
             fast = fast->next->next;
             slow = slow->next;
         }
         
-        ListNode* revHead = reverseList(slow);
+        ListNode* reversedSecondHalf = reverseList(slow);
         
-        ListNode* firstHalf = head;
-        ListNode* secondHalf = revHead;
+        ListNode* firstHalfPointer = head;
+        ListNode* secondHalfPointer = reversedSecondHalf;
         
-        while(secondHalf != NULL){
-            if(firstHalf->val != secondHalf->val){
+        while(secondHalfPointer != NULL){
+            if(firstHalfPointer->val != secondHalfPointer->val){
                 return false; 
             }
-            firstHalf = firstHalf->next;
-            secondHalf = secondHalf->next;
+            firstHalfPointer = firstHalfPointer->next;
+            secondHalfPointer = secondHalfPointer->next;
         }
         
         return true; 

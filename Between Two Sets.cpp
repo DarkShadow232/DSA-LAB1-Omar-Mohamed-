@@ -1,31 +1,34 @@
-int getTotalX(vector<int> a, vector<int> b) {
-    int l1=a.size();
-    sort(a.begin(),a.end());
-    int l2=b.size();
-    sort(b.begin(),b.end());
-    int Count=0;
-    for(int i=a[l1-1];i<=b[0];i++){
-        int flag=0;
-        for(int j=0;j<l1;j++){
-            if(i%a[j]==0)
-                continue;
-            else{
-                flag=1;
+int getTotalX(vector<int> firstArray, vector<int> secondArray) {
+    int firstSize = firstArray.size();
+    sort(firstArray.begin(), firstArray.end());
+    
+    int secondSize = secondArray.size();
+    sort(secondArray.begin(), secondArray.end());
+    
+    int count = 0;
+    
+    for(int number = firstArray[firstSize - 1]; number <= secondArray[0]; number++){
+        bool isValid = true;
+        
+        for(int j = 0; j < firstSize; j++){
+            if(number % firstArray[j] != 0){
+                isValid = false;
                 break;
             }
         }
-        if(flag==0){
-            for(int k=0;k<l2;k++){
-                if(b[k]%i==0){
-                    continue;
-                }else{
-                    flag=1;
+        
+        if(isValid){
+            for(int k = 0; k < secondSize; k++){
+                if(secondArray[k] % number != 0){
+                    isValid = false;
                     break;
                 }
             }
         }
-        if(flag==0)
-            Count++;
+        
+        if(isValid)
+            count++;
     }
-    return Count;
+    
+    return count;
 }

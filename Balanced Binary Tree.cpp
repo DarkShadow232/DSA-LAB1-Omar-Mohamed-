@@ -9,22 +9,23 @@
 
 class Solution {
 public:
-    
-    int recurse(TreeNode* node, bool &isBalancedTree){
-        if(node == NULL || isBalancedTree == false)
+    int getHeightAndCheckBalance(TreeNode* node, bool &balanced){
+        if(node == NULL || balanced == false)
             return 0;
-        int leftSubtreeHeight = recurse(node->left, isBalancedTree);
-        int rightSubtreeHeight = recurse(node->right, isBalancedTree);
-        if(abs(leftSubtreeHeight - rightSubtreeHeight) > 1){
-            isBalancedTree = false;
+            
+        int leftHeight = getHeightAndCheckBalance(node->left, balanced);
+        int rightHeight = getHeightAndCheckBalance(node->right, balanced);
+        
+        if(abs(leftHeight - rightHeight) > 1){
+            balanced = false;
         }
-        return 1 + max(leftSubtreeHeight, rightSubtreeHeight);
+        
+        return 1 + max(leftHeight, rightHeight);
     }
     
-    
     bool isBalanced(TreeNode* root) {
-        bool isBalancedTree = true;
-        recurse(root, isBalancedTree);
-        return isBalancedTree;
+        bool balanced = true;
+        getHeightAndCheckBalance(root, balanced);
+        return balanced;
     }
 };

@@ -1,16 +1,14 @@
-string catAndMouse(int x, int y, int z) {
-    int diffCatA, diffCatB;
+string catAndMouse(int catAPosition, int catBPosition, int mousePosition) {
+    int distanceCatA = abs(catAPosition - mousePosition);
+    int distanceCatB = abs(catBPosition - mousePosition);
     
-    diffCatA = abs(x - z);
-    diffCatB = abs(y - z);
-    
-    if (diffCatB > diffCatA) {
+    if (distanceCatA < distanceCatB) {
         return "Cat A";
     }
-    else if (diffCatB < diffCatA) {
+    else if (distanceCatB < distanceCatA) {
         return "Cat B";
     }
     else {
         return "Mouse C";
-    };
+    }
 }

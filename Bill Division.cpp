@@ -1,15 +1,17 @@
-void bonAppetit(vector<int> bill, int k, int b) {
-    int d = 0;
-    for(int i =0; i < bill.size(); i++){
-        d = d + bill[i];
+void bonAppetit(vector<int> billItems, int itemNotEaten, int amountPaid) {
+    int totalBill = 0;
+    
+    for(int i = 0; i < billItems.size(); i++){
+        totalBill = totalBill + billItems[i];
     }
-    d = d - bill[k];
-    d = d / 2;
-    if(d == b) {
+    
+    totalBill = totalBill - billItems[itemNotEaten];
+    int fairShare = totalBill / 2;
+    
+    if(fairShare == amountPaid) {
         cout << "Bon Appetit";
-    }
-    else {
-       int due = b - d;
-        cout << due;
+    } else {
+        int overcharged = amountPaid - fairShare;
+        cout << overcharged;
     }
 }

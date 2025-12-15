@@ -5,33 +5,31 @@ public:
         ListNode *fast = head;
         ListNode *slow = head;
         
-        bool isCycleFound = false;
+        bool cycleFound = false;
         
         while(fast != NULL && fast->next != NULL){
-            
             slow = slow->next;
             fast = fast->next->next;
             
             if(fast == slow){
-                isCycleFound = true;
+                cycleFound = true;
                 break;
             }
         }
         
-        if(!isCycleFound){
+        if(!cycleFound){
             return NULL;
         }
         
-        ListNode* start = head;
-        ListNode* end = slow;
+        ListNode* pointerFromStart = head;
+        ListNode* pointerFromMeeting = slow;
         
-        while(start != end){
-            start = start->next;
-            end = end->next;
+        while(pointerFromStart != pointerFromMeeting){
+            pointerFromStart = pointerFromStart->next;
+            pointerFromMeeting = pointerFromMeeting->next;
         }
         
-        return start;
-        
+        return pointerFromStart;
     }
 };
 

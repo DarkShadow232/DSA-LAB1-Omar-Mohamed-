@@ -1,15 +1,15 @@
-string angryProfessor(int k, vector<int> a) {
-    int count = 0;
-    for (int i = 0; i < a.size(); i++) {
-        if (a[i] <= 0) {
-            count++;
+string angryProfessor(int minimumStudents, vector<int> arrivalTimes) {
+    int studentsOnTime = 0;
+    
+    for (int i = 0; i < arrivalTimes.size(); i++) {
+        if (arrivalTimes[i] <= 0) {
+            studentsOnTime++;
         }
     }
     
-    if (count < k) {
+    if (studentsOnTime < minimumStudents) {
         return "YES";
-    }
-    else {
+    } else {
         return "NO";
     }
 }

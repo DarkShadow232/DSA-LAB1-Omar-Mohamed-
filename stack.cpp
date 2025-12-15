@@ -3,86 +3,86 @@
 using namespace std;
 
 class Stack {
-    int arr[100];
-    int top;
+    int elements[100];
+    int topIndex;
 
 public:
     Stack() {
-        top = -1;
+        topIndex = -1;
     }
 
     bool isEmpty() {
-        return top == -1;
+        return topIndex == -1;
     }
 
     bool isFull() {
-        return top == 99;
+        return topIndex == 99;
     }
 
-    void push(int val) {
+    void push(int value) {
         if (!isFull()) {
-            top++;
-            arr[top] = val;
+            topIndex++;
+            elements[topIndex] = value;
         }
     }
 
     int pop() {
         if (!isEmpty()) {
-            int val = arr[top];
-            top--;
-            return val;
+            int value = elements[topIndex];
+            topIndex--;
+            return value;
         }
         return -1;
     }
 
     int peek() {
         if (!isEmpty()) {
-            return arr[top];
+            return elements[topIndex];
         }
         return -1;
     }
 };
 
-int precedence(char op) {
-    if (op == '*' || op == '/') return 2;
-    if (op == '+' || op == '-') return 1;
+int precedence(char operatorChar) {
+    if (operatorChar == '*' || operatorChar == '/') return 2;
+    if (operatorChar == '+' || operatorChar == '-') return 1;
     return 0;
 }
 
-string infixToPostfix(string exp) {
-    Stack s;
+string infixToPostfix(string expression) {
+    Stack stack;
     string result = "";
     
-    for (int i = 0; i < exp.length(); i++) {
-        char c = exp[i];
-        if (c == ' ') continue;
+    for (int i = 0; i < expression.length(); i++) {
+        char currentChar = expression[i];
+        if (currentChar == ' ') continue;
         
-        if (c >= '0' && c <= '9') {
-            result += c;
+        if (currentChar >= '0' && currentChar <= '9') {
+            result += currentChar;
             result += ' ';
         }
-        else if (c == '(') {
-            s.push(c);
+        else if (currentChar == '(') {
+            stack.push(currentChar);
         }
-        else if (c == ')') {
-            while (s.peek() != '(') {
-                result += (char)s.pop();
+        else if (currentChar == ')') {
+            while (stack.peek() != '(') {
+                result += (char)stack.pop();
                 result += ' ';
             }
-            s.pop();
+            stack.pop();
         }
         else {
-            while (!s.isEmpty() && s.peek() != '(' && 
-                   precedence((char)s.peek()) >= precedence(c)) {
-                result += (char)s.pop();
+            while (!stack.isEmpty() && stack.peek() != '(' && 
+                   precedence((char)stack.peek()) >= precedence(currentChar)) {
+                result += (char)stack.pop();
                 result += ' ';
             }
-            s.push(c);
+            stack.push(currentChar);
         }
     }
     
-    while (!s.isEmpty()) {
-        result += (char)s.pop();
+    while (!stack.isEmpty()) {
+        result += (char)stack.pop();
         result += ' ';
     }
     
@@ -93,28 +93,28 @@ string infixToPostfix(string exp) {
     return result;
 }
 
-int evaluatePostfix(string exp) {
-    Stack s;
+int evaluatePostfix(string expression) {
+    Stack stack;
     
-    for (int i = 0; i < exp.length(); i++) {
-        char c = exp[i];
-        if (c == ' ') continue;
+    for (int i = 0; i < expression.length(); i++) {
+        char currentChar = expression[i];
+        if (currentChar == ' ') continue;
         
-        if (c >= '0' && c <= '9') {
-            s.push(c - '0');
+        if (currentChar >= '0' && currentChar <= '9') {
+            stack.push(currentChar - '0');
         }
         else {
-            int b = s.pop();
-            int a = s.pop();
+            int secondOperand = stack.pop();
+            int firstOperand = stack.pop();
             
-            if (c == '+') s.push(a + b);
-            else if (c == '-') s.push(a - b);
-            else if (c == '*') s.push(a * b);
-            else if (c == '/') s.push(a / b);
+            if (currentChar == '+') stack.push(firstOperand + secondOperand);
+            else if (currentChar == '-') stack.push(firstOperand - secondOperand);
+            else if (currentChar == '*') stack.push(firstOperand * secondOperand);
+            else if (currentChar == '/') stack.push(firstOperand / secondOperand);
         }
     }
     
-    return s.pop();
+    return stack.pop();
 }
 
 int main() {

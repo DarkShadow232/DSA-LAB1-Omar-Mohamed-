@@ -1,14 +1,15 @@
-vector<int> compareTriplets(vector<int> a, vector<int> b) {
-    int alice  = 0, bob = 0;
+vector<int> compareTriplets(vector<int> aliceScores, vector<int> bobScores) {
+    int alicePoints = 0;
+    int bobPoints = 0;
     
-    for (int i = 0; i < a.size(); i++) {
-        if (a[i] < b[i]) {
-            bob++;
+    for (int i = 0; i < aliceScores.size(); i++) {
+        if (aliceScores[i] > bobScores[i]) {
+            alicePoints++;
         }
-        else if (b[i] < a[i]) {
-            alice++;
+        else if (bobScores[i] > aliceScores[i]) {
+            bobPoints++;
         }
-    };
+    }
     
-    return vector<int> {alice, bob};
-};
+    return vector<int> {alicePoints, bobPoints};
+}

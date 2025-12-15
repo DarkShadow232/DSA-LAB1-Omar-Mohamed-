@@ -11,41 +11,40 @@
 
 class MyQueue {
 public:
-    
-    stack<int> stk;
+    stack<int> mainStack;
     
     MyQueue() {
         
     }
     
-    void recurse(int x, stack<int> &stk){  
-        if(stk.empty()){
-            stk.push(x);
+    void insertAtBottom(int value, stack<int> &stack){  
+        if(stack.empty()){
+            stack.push(value);
             return;
         }
-        int current_top = stk.top();
-        stk.pop();
-        recurse(x, stk);
-        stk.push(current_top);
+        int topElement = stack.top();
+        stack.pop();
+        insertAtBottom(value, stack);
+        stack.push(topElement);
     }
     
-    void push(int x) {
-        recurse(x, stk);
+    void push(int value) {
+        insertAtBottom(value, mainStack);
     }
     
     int pop() {
-        int topValue = stk.top();
-        stk.pop();
-        return topValue;
+        int frontValue = mainStack.top();
+        mainStack.pop();
+        return frontValue;
     }
     
     int peek() {
-        int topValue = stk.top();
-        return topValue;
+        int frontValue = mainStack.top();
+        return frontValue;
     }
     
     bool empty() {
-        return stk.empty();
+        return mainStack.empty();
     }
 };
 
@@ -68,36 +67,35 @@ public:
 
 class MyQueue {
 public:
-    
-    stack<int> primary, aux;
+    stack<int> inputStack, outputStack;
     
     MyQueue() {
         
     }
     
-    void push(int x) {
-        primary.push(x);
+    void push(int value) {
+        inputStack.push(value);
     }
     
     int pop() { 
-        int topValue = peek();
-        aux.pop();
-        return topValue;
+        int frontValue = peek();
+        outputStack.pop();
+        return frontValue;
     }
     
     int peek() {
-        if(aux.empty()){
-            while(!primary.empty()){
-                int tp = primary.top();
-                aux.push(tp);
-                primary.pop();
+        if(outputStack.empty()){
+            while(!inputStack.empty()){
+                int element = inputStack.top();
+                outputStack.push(element);
+                inputStack.pop();
             }
         }
         
-        return aux.top();
+        return outputStack.top();
     }
     
     bool empty() {
-        return primary.empty() && aux.empty();
+        return inputStack.empty() && outputStack.empty();
     }
 };

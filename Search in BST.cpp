@@ -14,22 +14,20 @@
 
 class Solution {
 public:
-    
-    TreeNode* recurse(TreeNode* node, int val){
-        
-        if(node == NULL)
+    TreeNode* search(TreeNode* currentNode, int targetValue){
+        if(currentNode == NULL)
             return NULL;
         
-        if(node->val == val){
-            return node;
-        }else if(node->val > val){
-            return recurse(node->left, val);
-        }else{
-            return recurse(node->right, val);
+        if(currentNode->val == targetValue){
+            return currentNode;
+        } else if(currentNode->val > targetValue){
+            return search(currentNode->left, targetValue);
+        } else {
+            return search(currentNode->right, targetValue);
         }
     }
     
-    TreeNode* searchBST(TreeNode* root, int val) {
-        return recurse(root, val);
+    TreeNode* searchBST(TreeNode* root, int targetValue) {
+        return search(root, targetValue);
     }
 };

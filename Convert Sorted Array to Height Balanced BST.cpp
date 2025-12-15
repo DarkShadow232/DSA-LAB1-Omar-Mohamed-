@@ -14,23 +14,20 @@
 
 class Solution {
 public:
-    
-    TreeNode* recurse(vector<int>& nums, int low, int high){
-        
-        if(low > high)
+    TreeNode* buildBalancedBST(vector<int>& numbers, int leftIndex, int rightIndex){
+        if(leftIndex > rightIndex)
             return NULL;
         
-        int mid = low + ((high - low)/2);
+        int middleIndex = leftIndex + ((rightIndex - leftIndex)/2);
         
-        TreeNode* node = new TreeNode(nums[mid]);
-        node->left = recurse(nums, low, mid - 1);
-        node->right = recurse(nums, mid + 1, high);
+        TreeNode* node = new TreeNode(numbers[middleIndex]);
+        node->left = buildBalancedBST(numbers, leftIndex, middleIndex - 1);
+        node->right = buildBalancedBST(numbers, middleIndex + 1, rightIndex);
         
         return node;
-        
     }
     
-    TreeNode* sortedArrayToBST(vector<int>& nums) {
-        return recurse(nums, 0, nums.size() - 1);
+    TreeNode* sortedArrayToBST(vector<int>& numbers) {
+        return buildBalancedBST(numbers, 0, numbers.size() - 1);
     }
 };

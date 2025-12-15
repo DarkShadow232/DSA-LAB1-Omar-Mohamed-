@@ -15,43 +15,39 @@
 
 class Solution {
 public:
-    TreeNode* recurse(vector<int>& preorder, int start, int end) {
-        
-        if(start > end){
+    TreeNode* buildBSTFromRange(vector<int>& preorder, int startIndex, int endIndex) {
+        if(startIndex > endIndex){
             return NULL;
         }
         
-        if(start == end){
-            TreeNode* node = new TreeNode(preorder[start]);
+        if(startIndex == endIndex){
+            TreeNode* node = new TreeNode(preorder[startIndex]);
             return node;
         }
         
-        TreeNode* node = new TreeNode(preorder[start]);
+        TreeNode* node = new TreeNode(preorder[startIndex]);
         
-        int mid = -1;
+        int rightSubtreeStart = -1;
         
-        for(int i = start + 1 ; i <= end ; i++){
-            if(preorder[i] > preorder[start]){
-                mid = i;
+        for(int i = startIndex + 1; i <= endIndex; i++){
+            if(preorder[i] > preorder[startIndex]){
+                rightSubtreeStart = i;
                 break;
             }
         }
         
-        if(mid == -1){
-            node->left = recurse(preorder, start + 1, end);
-        }else{
-            node->left = recurse(preorder, start + 1, mid - 1);
-            node->right = recurse(preorder, mid, end);
+        if(rightSubtreeStart == -1){
+            node->left = buildBSTFromRange(preorder, startIndex + 1, endIndex);
+        } else {
+            node->left = buildBSTFromRange(preorder, startIndex + 1, rightSubtreeStart - 1);
+            node->right = buildBSTFromRange(preorder, rightSubtreeStart, endIndex);
         }
     
         return node;
-        
     }
     
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        
-        return recurse(preorder, 0, preorder.size() - 1);
-        
+        return buildBSTFromRange(preorder, 0, preorder.size() - 1);
     }
 };
 
@@ -69,26 +65,22 @@ public:
 
 class Solution {
 public:
-    TreeNode* builtTree(vector<int>& preorder, int &index, int upper_bound) {
+    TreeNode* buildTree(vector<int>& preorder, int &currentIndex, int maxValue) {
+        int arraySize = preorder.size();
         
-        int N = preorder.size();
-        
-        if(index == N || preorder[index] > upper_bound)
+        if(currentIndex == arraySize || preorder[currentIndex] > maxValue)
             return NULL;
         
-        TreeNode *node = new TreeNode(preorder[index++]);
-        node->left = builtTree(preorder, index, node->val);
-        node->right = builtTree(preorder, index, upper_bound);
+        TreeNode *node = new TreeNode(preorder[currentIndex++]);
+        node->left = buildTree(preorder, currentIndex, node->val);
+        node->right = buildTree(preorder, currentIndex, maxValue);
         
         return node;
-        
     }
     
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        
-        int index = 0;
-        int upper_bound = INT_MAX;
-        return builtTree(preorder, index, upper_bound);
-        
+        int currentIndex = 0;
+        int maxValue = INT_MAX;
+        return buildTree(preorder, currentIndex, maxValue);
     }
 };

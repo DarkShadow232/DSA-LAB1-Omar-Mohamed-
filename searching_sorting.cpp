@@ -1,79 +1,79 @@
 #include <iostream>
 using namespace std;
 
-void printArray(int arr[], int n) {
-    for (int i = 0; i < n; i++) {
-        cout << arr[i] << " ";
+void printArray(int array[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << array[i] << " ";
     }
     cout << endl;
 }
 
-int linearSearch(int arr[], int n, int key) {
-    for (int i = 0; i < n; i++) {
-        if (arr[i] == key) {
+int linearSearch(int array[], int size, int target) {
+    for (int i = 0; i < size; i++) {
+        if (array[i] == target) {
             return i;
         }
     }
     return -1;
 }
 
-int binarySearch(int arr[], int n, int key) {
-    int left = 0;
-    int right = n - 1;
+int binarySearch(int array[], int size, int target) {
+    int leftIndex = 0;
+    int rightIndex = size - 1;
     
-    while (left <= right) {
-        int mid = (left + right) / 2;
+    while (leftIndex <= rightIndex) {
+        int middleIndex = (leftIndex + rightIndex) / 2;
         
-        if (arr[mid] == key) {
-            return mid;
+        if (array[middleIndex] == target) {
+            return middleIndex;
         }
         
-        if (key < arr[mid]) {
-            right = mid - 1;
+        if (target < array[middleIndex]) {
+            rightIndex = middleIndex - 1;
         }
         else {
-            left = mid + 1;
+            leftIndex = middleIndex + 1;
         }
     }
     return -1;
 }
 
-void bubbleSort(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
+void bubbleSort(int array[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (array[j] > array[j + 1]) {
+                int temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
             }
         }
     }
 }
 
-void selectionSort(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        int minPos = i;
-        for (int j = i + 1; j < n; j++) {
-            if (arr[j] < arr[minPos]) {
-                minPos = j;
+void selectionSort(int array[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        int minimumIndex = i;
+        for (int j = i + 1; j < size; j++) {
+            if (array[j] < array[minimumIndex]) {
+                minimumIndex = j;
             }
         }
-        int temp = arr[i];
-        arr[i] = arr[minPos];
-        arr[minPos] = temp;
+        int temp = array[i];
+        array[i] = array[minimumIndex];
+        array[minimumIndex] = temp;
     }
 }
 
-void insertionSort(int arr[], int n) {
-    for (int i = 1; i < n; i++) {
-        int current = arr[i];
+void insertionSort(int array[], int size) {
+    for (int i = 1; i < size; i++) {
+        int currentValue = array[i];
         int j = i - 1;
         
-        while (j >= 0 && arr[j] > current) {
-            arr[j + 1] = arr[j];
+        while (j >= 0 && array[j] > currentValue) {
+            array[j + 1] = array[j];
             j--;
         }
-        arr[j + 1] = current;
+        array[j + 1] = currentValue;
     }
 }
 
